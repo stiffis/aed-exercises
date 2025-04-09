@@ -56,7 +56,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     }
     T pop_front() {
         if (head == nullptr) {
-            return nullptr;
+            return T();
         }
         Node *temp = head;
         T data = temp->data;
@@ -72,7 +72,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     }
     T pop_back() {
         if (tail == nullptr) {
-            return nullptr;
+            return T();
         }
         Node *temp = tail;
         T data = temp->data;
@@ -116,10 +116,12 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         temp->next = newNode;
         size++;
     }
-    void remove(int x); // TODO: Implement and ask
+    void remove(int x){
+        int a = x;
+    } // TODO: Implement and ask
     T &operator[](int pos) {
         if (pos >= size || pos < 0 || head == nullptr) {
-            return T(); // WARN: returns the defaul value(depends on the
+            throw std::out_of_range("Indice fuera de rango"); // WARN: returns the defaul value(depends on the
                         // constructor)
         }
         Node *temp = head;
@@ -130,16 +132,23 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     }
     bool is_empty() { return (size == 0); }
     int get_size() { return size; }
-    void sort(); // TODO: Implement and ask
+    void sort(){
+        int a = 0;
+    } // TODO: Implement and ask
     void clear() {
-        Node *current = head;
-        while (current != nullptr) {
-            Node *next = current->next;
-            delete current;
-            current = next;
+        Node *temp = head;
+        while (temp != nullptr) {
+            Node *next = temp->next;
+            delete temp;
+            temp = next;
         }
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
     }
-    void reverse();
+    void reverse(){
+        int a = 0;
+    }
     std::string name() { return "CDoublyLinkedList"; }
     void print() {
         Node *temp = head;

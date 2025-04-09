@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iterator>
 #include <stdexcept>
+#include <string>
 
 template <typename T> class CDoublyLinkedList : public List<T> {
   private:
@@ -116,7 +117,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         size++;
     }
     void remove(int x); // TODO: Implement and ask
-    T operator[](int pos) const {
+    T &operator[](int pos) {
         if (pos >= size || pos < 0 || head == nullptr) {
             return T(); // WARN: returns the defaul value(depends on the
                         // constructor)
@@ -138,7 +139,16 @@ template <typename T> class CDoublyLinkedList : public List<T> {
             current = next;
         }
     }
-    void reverse() {}
+    void reverse();
+    std::string name() { return "CDoublyLinkedList"; }
+    void print() {
+        Node *temp = head;
+        while (temp != nullptr) {
+            std::cout << temp->data << " ";
+            temp = temp->next;
+        }
+        std::cout << std::endl;
+    }
 };
 
 template <typename T>

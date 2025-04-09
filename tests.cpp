@@ -1,8 +1,9 @@
 #include "CForwardList.h"
-
+#include "CDoublyLinkedList.h"
 #include <iostream>
 
 int main () {
+    CDoublyLinkedList<int> list1;
     CForwardList<int> list;
     list.push_back(1);
     list.push_back(2);

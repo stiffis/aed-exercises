@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iterator>
 #include <stdexcept>
+#include <string>
 
 template <typename T> class CForwardList : public List<T> {
   private:
@@ -32,13 +33,13 @@ template <typename T> class CForwardList : public List<T> {
         }
         return temp->data;
     }
-    void push_front(const T &data) { // O(1)
+    void push_front(T data) { // O(1)
         Node *newNode = new Node(data);
         newNode->next = head;
         head = newNode;
         size++;
     }
-    void push_back(const T &data) { // O(n)
+    void push_back(T data) { // O(n)
         Node *newNode = new Node(data);
         Node *temp = head;
         if (head == nullptr) {
@@ -55,7 +56,7 @@ template <typename T> class CForwardList : public List<T> {
 
     T pop_front() { // O(1)
         if (head == nullptr) {
-            return;
+            return T();
         }
         Node *temp = head;
         head = head->next;
@@ -67,7 +68,7 @@ template <typename T> class CForwardList : public List<T> {
 
     T pop_back() { // O(n)
         if (head == nullptr) {
-            return;
+            return T();
         }
         Node *temp = head;
         Node *prev = nullptr;
@@ -86,7 +87,7 @@ template <typename T> class CForwardList : public List<T> {
         return data;
     }
 
-    void insert(const T &data, int pos) { // O(n)
+    void insert(T data, int pos) { // O(n)
         if (pos == 0) {
             push_front(data);
             return;
@@ -100,8 +101,8 @@ template <typename T> class CForwardList : public List<T> {
         temp->next = newNode;
         size++;
     }
-    void remove(const T data) { // WARN: NOT SURE O(n)
-        Node *temp = head;
+    void remove(int pos) { // WARN: NOT SURE O(n)
+        /*Node *temp = head;
         Node *prev = nullptr;
         while (temp != nullptr) {
             if (temp->data == data) {
@@ -120,9 +121,9 @@ template <typename T> class CForwardList : public List<T> {
                 prev = temp;
                 temp = temp->next;
             }
-        }
+        }*/
     }
-    T operator[](int index) const { // O(n)
+    T &operator[](int index){ // O(n)
         Node *temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
@@ -183,6 +184,7 @@ template <typename T> class CForwardList : public List<T> {
         }
         std::cout << std::endl;
     }
+    std::string name() { return "CForwardList"; } // O(1)
 };
 
 template <typename T>

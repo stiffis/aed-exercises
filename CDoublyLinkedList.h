@@ -121,7 +121,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     } // TODO: Implement and ask
     T &operator[](int pos) {
         if (pos >= size || pos < 0 || head == nullptr) {
-            throw std::out_of_range("Indice fuera de rango"); // WARN: returns the defaul value(depends on the
+            throw std::out_of_range("Indice fuera de rango"); //throw an error or continues with the code.
                         // constructor)
         }
         Node *temp = head;

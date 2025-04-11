@@ -116,7 +116,32 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         temp->next = newNode;
         size++;
     }
-    void remove(int x) { int a = x; } // TODO: Implement and ask
+    void remove(int x) {
+        // where x is position
+        if (x < 0 || x >= size) {
+            return;
+        }
+        if (x == 0) {
+            pop_front();
+            return;
+        }
+        if (x == size - 1) {
+            pop_back();
+            return;
+        }
+        Node *temp = head;
+        for (int i = 0; i < x; ++i) {
+            temp = temp->next;
+        }
+        if (temp->prev != nullptr) {
+            temp->prev->next = temp->next;
+        }
+        if (temp->next != nullptr) {
+            temp->next->prev = temp->prev;
+        }
+        delete temp;
+        size--;
+    }
     T &operator[](int pos) {
         if (pos >= size || pos < 0 || head == nullptr) {
             throw std::out_of_range(
@@ -132,8 +157,25 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     }
     bool is_empty() { return (size == 0); }
     int get_size() { return size; }
-    void sort() { int a = 0;  // TODO: Implement and ask
-    
+    void sort() {
+        if (head == nullptr || head->next == nullptr) {
+            return;
+        }
+        Node *current = head;
+        Node *index = nullptr;
+        T temp;
+        while (current != nullptr) {
+            index = current->next;
+            while (index != nullptr) {
+                if (current->data > index->data) {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        }
     }
     void clear() {
         Node *temp = head;

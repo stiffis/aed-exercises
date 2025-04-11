@@ -21,8 +21,10 @@ void test(List<int>* list){
     ASSERT((*list)[2] == 12, "The operator [] is not working");    
     list->push_back(10);
     list->push_front(3);
+    list->print();
     ASSERT(list->is_sorted() == false, "The function is_sorted is not working");
     list->sort();
+    list->print();
     ASSERT(list->is_sorted() == true, "The function sort is not working");
     list->clear();
     ASSERT(list->is_empty() == true, "The function clear is not working");

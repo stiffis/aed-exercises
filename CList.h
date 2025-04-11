@@ -24,6 +24,7 @@ template <typename T> class List {
     virtual void sort() = 0;
     virtual void reverse() = 0;
     virtual bool is_sorted() = 0;
+    virtual void print() = 0;
     virtual std::string name() = 0;
 };
 

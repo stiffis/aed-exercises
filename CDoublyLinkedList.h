@@ -116,13 +116,13 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         temp->next = newNode;
         size++;
     }
-    void remove(int x){
-        int a = x;
-    } // TODO: Implement and ask
+    void remove(int x) { int a = x; } // TODO: Implement and ask
     T &operator[](int pos) {
         if (pos >= size || pos < 0 || head == nullptr) {
-            throw std::out_of_range("Indice fuera de rango"); //throw an error or continues with the code.
-                        // constructor)
+            throw std::out_of_range(
+                "Indice fuera de rango"); // throw an error or continues with
+                                          // the code.
+                                          //  constructor)
         }
         Node *temp = head;
         for (int i = 0; i < pos; ++i) {
@@ -132,9 +132,9 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     }
     bool is_empty() { return (size == 0); }
     int get_size() { return size; }
-    void sort(){
-        int a = 0;
-    } // TODO: Implement and ask
+    void sort() { int a = 0;  // TODO: Implement and ask
+    
+    }
     void clear() {
         Node *temp = head;
         while (temp != nullptr) {
@@ -146,9 +146,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         tail = nullptr;
         size = 0;
     }
-    void reverse(){
-        int a = 0;
-    }
+    void reverse() { int a = 0; }
     std::string name() { return "CDoublyLinkedList"; }
     void print() {
         Node *temp = head;

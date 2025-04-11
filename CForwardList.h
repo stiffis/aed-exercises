@@ -176,6 +176,19 @@ template <typename T> class CForwardList : public List<T> {
         }
         head = prev;
     }
+    bool is_sorted() { // PERF: O(n)
+        Node *temp = head;
+        if (head == nullptr) {
+            return true;
+        }
+        while (temp->next != nullptr) {
+            if (temp->data > temp->next->data) {
+                return false;
+            }
+            temp = temp->next;
+        }
+        return true;
+    }
     void print() { // PERF: O(n)
         Node *temp = head;
         while (temp != nullptr) {
@@ -192,10 +205,3 @@ CForwardList<T>::CForwardList() : head(nullptr), size(0) {}
 
 template <typename T> CForwardList<T>::~CForwardList() { clear(); }
 #endif // CFORWARDLIST_H
-// BUG:
-/*
-⠀ ／l
-（ﾟ､ ｡ ７
-⠀ l、ﾞ ~ヽ
-  じしf_, )ノ ❤️
-*/

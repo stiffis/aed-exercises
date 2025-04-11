@@ -147,6 +147,19 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         size = 0;
     }
     void reverse() { int a = 0; }
+    bool is_sorted() {
+        Node *temp = head;
+        if (head == nullptr) {
+            return true;
+        }
+        while (temp->next != nullptr) {
+            if (temp->data > temp->next->data) {
+                return false;
+            }
+            temp = temp->next;
+        }
+        return true;
+    }
     std::string name() { return "CDoublyLinkedList"; }
     void print() {
         Node *temp = head;

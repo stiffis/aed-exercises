@@ -14,7 +14,7 @@ private:
     
 };
 #endif // !CCIRCULAR_DOUBLY_LINKED_LIST_H
-// BUG:
+// PERF: 
 /*
 ⠀ ／l
 （ﾟ､ ｡ ７

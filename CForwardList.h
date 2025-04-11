@@ -205,3 +205,10 @@ CForwardList<T>::CForwardList() : head(nullptr), size(0) {}
 
 template <typename T> CForwardList<T>::~CForwardList() { clear(); }
 #endif // CFORWARDLIST_H
+// PERF: 
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

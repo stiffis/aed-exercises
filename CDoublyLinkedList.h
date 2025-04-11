@@ -218,7 +218,7 @@ CDoublyLinkedList<T>::CDoublyLinkedList()
     : head(nullptr), tail(nullptr), size(0) {}
 template <typename T> CDoublyLinkedList<T>::~CDoublyLinkedList() { clear(); }
 #endif // !CDOUBLYLINKEDLIST_H
-// BUG:
+// PERF: 
 /*
 ⠀ ／l
 （ﾟ､ ｡ ７

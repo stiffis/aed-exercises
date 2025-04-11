@@ -25,21 +25,21 @@ template <typename T> class CForwardList : public List<T> {
     Node *getHead() { return head; }
     void setHead(Node *head) { this->head = head; }
     void setSize(int size) { this->size = size; }
-    T front() { return head->data; } // O(1)
-    T back() {                       // O(n)
+    T front() { return head->data; } // PERF: O(1)
+    T back() {                       // PERF: O(n)
         Node *temp = head;
         while (temp->next != nullptr) {
             temp = temp->next;
         }
         return temp->data;
     }
-    void push_front(T data) { // O(1)
+    void push_front(T data) { // PERF: O(1)
         Node *newNode = new Node(data);
         newNode->next = head;
         head = newNode;
         size++;
     }
-    void push_back(T data) { // O(n)
+    void push_back(T data) { // PERF: O(n)
         Node *newNode = new Node(data);
         Node *temp = head;
         if (head == nullptr) {
@@ -54,7 +54,7 @@ template <typename T> class CForwardList : public List<T> {
         size++;
     }
 
-    T pop_front() { // O(1)
+    T pop_front() { // PERF: O(1)
         if (head == nullptr) {
             return T();
         }
@@ -66,7 +66,7 @@ template <typename T> class CForwardList : public List<T> {
         return data;
     }
 
-    T pop_back() { // O(n)
+    T pop_back() { // PERF: O(n)
         if (head == nullptr) {
             return T();
         }
@@ -87,7 +87,7 @@ template <typename T> class CForwardList : public List<T> {
         return data;
     }
 
-    void insert(T data, int pos) { // O(n)
+    void insert(T data, int pos) { // PERF: O(n)
         if (pos == 0) {
             push_front(data);
             return;
@@ -123,15 +123,15 @@ template <typename T> class CForwardList : public List<T> {
             }
         }*/
     }
-    T &operator[](int index){ // O(n)
+    T &operator[](int index){ // PERF: O(n)
         Node *temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
         return temp->data;
     }
-    bool is_empty() { return size == 0; } // O(1)
-    int get_size() { return size; }       // O(1)
+    bool is_empty() { return size == 0; } // PERF: O(1)
+    int get_size() { return size; }       // PERF: O(1)
     void sort() {                         // WARN: NOT SURE
         Node *temp = head;
         Node *temp2 = nullptr;
@@ -152,7 +152,7 @@ template <typename T> class CForwardList : public List<T> {
             temp = temp->next;
         }
     }
-    void clear() { // O(n)
+    void clear() { // PERF: O(n)
         while (head) {
             Node *temp = head;
             head = head->next;
@@ -160,7 +160,7 @@ template <typename T> class CForwardList : public List<T> {
         }
         size = 0;
     }
-    void reverse() { // O(n)
+    void reverse() { // PERF: O(n)
         Node *current = head;
         Node *prev = nullptr;
         Node *next = nullptr;
@@ -176,7 +176,7 @@ template <typename T> class CForwardList : public List<T> {
         }
         head = prev;
     }
-    void print() { // O(n)
+    void print() { // PERF: O(n)
         Node *temp = head;
         while (temp != nullptr) {
             std::cout << temp->data << " ";
@@ -184,7 +184,7 @@ template <typename T> class CForwardList : public List<T> {
         }
         std::cout << std::endl;
     }
-    std::string name() { return "CForwardList"; } // O(1)
+    std::string name() { return "CForwardList"; } // PERF: O(1)
 };
 
 template <typename T>

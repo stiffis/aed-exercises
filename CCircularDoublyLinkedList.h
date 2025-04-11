@@ -14,3 +14,10 @@ private:
     
 };
 #endif // !CCIRCULAR_DOUBLY_LINKED_LIST_H
+// BUG:
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

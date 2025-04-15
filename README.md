@@ -1,8 +1,10 @@
 # aed-exercises
+
+# Integrantes:
+- Steve Andy Ildefonso Santos
+- Marco Antonio Galindo Bendezú
+
 A set of problems, from LeetCode and my clases.
 
 Todo List:
-- [ ]: Test CForwardList.h
-- [ ]: Finish implementation of CDoubleLinkedList.h
-- [ ]: Implement CDoubleLinkedList.h
-- [ ]: Fix main.cpp(tester from git)
+- []: Implement CCircularDoublyLinkedList

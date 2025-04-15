@@ -28,7 +28,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     void setHead(Node *head) { this->head = head; }
     void setSize(int size) { this->size = size; }
     void setTail(Node *tail) { this->tail = tail; }
-    T front() { return head->data; } // O(1)
+    T front() { return head->data; } // PERF: O(1)
     T back() { return tail->data; }  // O(1)
     void push_front(const T data) {
         Node *newNode = new Node(data);

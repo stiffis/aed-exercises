@@ -117,7 +117,6 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         size++;
     }
     void remove(int x) {
-        // where x is position
         if (x < 0 || x >= size) {
             return;
         }
@@ -144,10 +143,7 @@ template <typename T> class CDoublyLinkedList : public List<T> {
     }
     T &operator[](int pos) {
         if (pos >= size || pos < 0 || head == nullptr) {
-            throw std::out_of_range(
-                "Indice fuera de rango"); // throw an error or continues with
-                                          // the code.
-                                          //  constructor)
+            throw std::out_of_range("Indice fuera de rango");
         }
         Node *temp = head;
         for (int i = 0; i < pos; ++i) {

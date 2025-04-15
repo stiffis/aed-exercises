@@ -188,7 +188,26 @@ template <typename T> class CDoublyLinkedList : public List<T> {
         tail = nullptr;
         size = 0;
     }
-    void reverse() { int a = 0; }
+    void reverse() {
+        Node *current = head;
+        Node *temp = nullptr;
+
+        while (current != nullptr) {
+            temp = current->prev;
+            current->prev = current->next;
+            current->next = temp;
+            current = current->prev;
+        }
+
+        if (temp != nullptr) {
+            head = temp->prev;
+        }
+
+        tail = head;
+        while (tail && tail->next != nullptr) {
+            tail = tail->next;
+        }
+    }
     bool is_sorted() {
         Node *temp = head;
         if (head == nullptr) {
@@ -218,7 +237,7 @@ CDoublyLinkedList<T>::CDoublyLinkedList()
     : head(nullptr), tail(nullptr), size(0) {}
 template <typename T> CDoublyLinkedList<T>::~CDoublyLinkedList() { clear(); }
 #endif // !CDOUBLYLINKEDLIST_H
-// PERF: 
+// PERF:
 /*
 ⠀ ／l
 （ﾟ､ ｡ ７

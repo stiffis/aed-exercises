@@ -102,28 +102,26 @@ template <typename T> class CForwardList : public List<T> {
         size++;
     }
     void remove(int pos) { // WARN: NOT SURE O(n)
-        /*Node *temp = head;
-        Node *prev = nullptr;
-        while (temp != nullptr) {
-            if (temp->data == data) {
-                if (prev == nullptr) {
-                    head = temp->next;
-                    delete temp;
-                    temp = head;
-                    size--;
-                } else {
-                    prev->next = temp->next;
-                    delete temp;
-                    temp = prev->next;
-                    size--;
-                }
-            } else {
-                prev = temp;
-                temp = temp->next;
-            }
-        }*/
+        if (pos < 0 || pos >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+
+        if (pos == 0) {
+            pop_front();
+            return;
+        }
+
+        Node *temp = head;
+        for (int i = 0; i < pos - 1; ++i) {
+            temp = temp->next;
+        }
+
+        Node *nodeToDelete = temp->next;
+        temp->next = nodeToDelete->next;
+        delete nodeToDelete;
+        size--;
     }
-    T &operator[](int index){ // PERF: O(n)
+    T &operator[](int index) { // PERF: O(n)
         Node *temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
@@ -205,7 +203,7 @@ CForwardList<T>::CForwardList() : head(nullptr), size(0) {}
 
 template <typename T> CForwardList<T>::~CForwardList() { clear(); }
 #endif // CFORWARDLIST_H
-// PERF: 
+// PERF:
 /*
 ⠀ ／l
 （ﾟ､ ｡ ７

@@ -2,6 +2,7 @@
 #include "tester.h"
 #include "CForwardList.h"
 #include "CDoublyLinkedList.h"
+#include "CCircularDoublyLinkedList.h"
 
 using namespace std;
 
@@ -39,8 +40,8 @@ int main()
     List<int> *doble = new CDoublyLinkedList<int>();
     test(doble);
 
-    //List<int> *circular = new CCircularDoublyLikedList<int>();
-    //test(circular);
+    List<int> *circular = new CCircularDoublyLinkedList<int>();
+    test(circular);
 
     return 0;
 }

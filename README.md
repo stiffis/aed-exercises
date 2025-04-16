@@ -6,5 +6,3 @@
 
 A set of problems, from LeetCode and my clases.
 
-Todo List:
-- []: Implement CCircularDoublyLinkedList

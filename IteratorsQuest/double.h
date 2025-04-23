@@ -72,7 +72,7 @@ template <typename T> class DoubleList {
     }
     iterator end() {
         // Return an iterator pointing to the tail of the list
-        return iterator(tail);
+        return iterator(tail->next);
     }
     void push_back(T data) {
         // Create a new node

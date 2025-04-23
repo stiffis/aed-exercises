@@ -129,7 +129,16 @@ template <typename T> class CForwardList : public List<T> {
         return temp->data;
     }
     bool is_empty() { return size == 0; } // PERF: O(1)
-    int get_size() { return size; }       // PERF: O(1)
+    int get_sizeAux(Node* node){
+        if (node == nullptr) {
+            return 0;
+        }
+        return 1 + get_sizeAux(node->next);
+    }
+    int get_size() { 
+        //return size; 
+        return get_sizeAux(head);
+    }
     void sort() {                         // WARN: NOT SURE
         Node *temp = head;
         Node *temp2 = nullptr;
@@ -174,8 +183,16 @@ template <typename T> class CForwardList : public List<T> {
         }
         head = prev;
     }
+    bool is_sortedAux(Node *node, Node *next) {
+        if (node == nullptr || next == nullptr) {
+            return true;
+        } else if (node->data < next->data) {
+            return is_sortedAux(next, next->next);
+        }
+        return false;
+    }
     bool is_sorted() { // PERF: O(n)
-        Node *temp = head;
+        /*Node *temp = head;
         if (head == nullptr) {
             return true;
         }
@@ -186,6 +203,11 @@ template <typename T> class CForwardList : public List<T> {
             temp = temp->next;
         }
         return true;
+        */
+        if (head == nullptr || head->next == nullptr) {
+            return true;
+        }
+        return is_sortedAux(head, head->next);
     }
     void print() { // PERF: O(n)
         Node *temp = head;

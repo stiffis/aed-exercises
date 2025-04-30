@@ -79,3 +79,10 @@ template <typename T> class ForwardList {
     }
 };
 #endif
+// PERF: O(purr)
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

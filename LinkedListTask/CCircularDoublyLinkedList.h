@@ -252,3 +252,10 @@ void CCircularDoublyLinkedList<T>::print() {
 }
 
 #endif // CCIRCULAR_DOUBLY_LINKED_LIST_H
+// PERF: O(purr)
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

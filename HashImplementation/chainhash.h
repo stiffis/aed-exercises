@@ -163,3 +163,10 @@ template <typename TK, typename TV> class ChainHash {
     }
 };
 #endif // !CHAINHASH_H
+// PERF: O(purr)
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

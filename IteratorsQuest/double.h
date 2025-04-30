@@ -116,3 +116,10 @@ template <typename T> class DoubleList {
     }
 };
 #endif
+// PERF: O(purr)
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

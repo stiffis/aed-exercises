@@ -287,3 +287,10 @@ template <typename T> class BST {
     ~BST() { deleteTree(); }
 };
 #endif // BST_H
+// PERF: O(purr)
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

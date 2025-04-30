@@ -29,3 +29,10 @@ template <typename T> class List {
 };
 
 #endif
+// PERF: O(purr)
+/*
+⠀ ／l
+（ﾟ､ ｡ ７
+⠀ l、ﾞ ~ヽ
+  じしf_, )ノ ❤️
+*/

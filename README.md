@@ -84,12 +84,11 @@ To contribute:
 For any questions or suggestions, reach out via GitHub Issues or email me at [steve.ildefonso@utec.edu.pe].
 
 Enjoy solving the problems and happy coding! 🚀
-```cat
+
+---
 
 ⠀ ／l
 （ﾟ､ ｡ ７
 ⠀ l、ﾞ ~ヽ
   じしf_, )ノ ❤️
-
-```
 COMPLEXITY: O(purr)

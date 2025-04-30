@@ -1,4 +1,4 @@
-i# AED Exercises
+# AED Exercises
 
 Welcome to the **AED Exercises** repository! 🎯  
 This repository contains a collection of algorithmic and data structure exercises, sourced from **LeetCode** and **class assignments**.

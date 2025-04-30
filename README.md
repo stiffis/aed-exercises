@@ -13,11 +13,13 @@ The exercises are organized by topic and difficulty. Here's a quick outline:
 - **`easy/`**: Beginner-friendly exercises to practice fundamental concepts.
 - **`medium/`**: Intermediate exercises for honing problem-solving skills.
 - **`hard/`**: Advanced problems for in-depth exploration of algorithms and data structures.
+- **`implementations/`**: Contains implementations of various data structures and algorithms.
 
 ### File Naming Convention:
 Each file indicates its purpose:
 - `leet_<problem-name>.cpp`: Exercises sourced from LeetCode.
 - `class_<topic-name>.cpp`: Exercises from class assignments.
+- `impl_<data-structure>.cpp`: Implementations of specific data structures or algorithms.
 
 ---
 
@@ -82,9 +84,10 @@ To contribute:
 For any questions or suggestions, reach out via GitHub Issues or email me at [steve.ildefonso@utec.edu.pe].
 
 Enjoy solving the problems and happy coding! 🚀
+{
 ⠀ ／l
 （ﾟ､ ｡ ７
 ⠀ l、ﾞ ~ヽ
   じしf_, )ノ ❤️
-
+}
 COMPLEXITY: O(purr)

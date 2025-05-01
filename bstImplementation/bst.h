@@ -242,8 +242,77 @@ template <typename T> class BST {
             }
         }
     }
+    Node<T> *buildBSTAux(Node<T> *node, T arr[], int star, int end) {
+        if (star > end) {
+            return nullptr;
+        }
+        int middle = (star + end) / 2;
+        Node<T> *newNode = new Node<T>(arr[middle]);
+        newNode->left = buildBSTAux(node, arr, star, middle - 1);
+        newNode->right = buildBSTAux(node, arr, middle + 1, end);
+        return newNode;
+    }
+    void printTreeAux(Node<T> *node, int space) {
+        if (node == nullptr) {
+            return;
+        }
+        space += 10;
+        printTreeAux(node->right, space);
+        std::cout << std::endl;
+        for (int i = 10; i < space; i++) {
+            std::cout << " ";
+        }
+        std::cout << node->data << "\n";
+        printTreeAux(node->left, space);
+    }
+    class iterator { // INFO: Iterator class for in-order traversal
+        private:
+            Node<T> *current;
+            std::stack<Node<T> *> stack;
+        public:
+            iterator(Node<T> *root) {
+                current = root;
+                while (current != nullptr) {
+                    stack.push(current);
+                    current = current->left;
+                }
+            }
+            bool hasNext() {
+                return !stack.empty();
+            }
+            T next() {
+                if (!hasNext()) {
+                    throw std::out_of_range("No more elements");
+                }
+                Node<T> *node = stack.top();
+                stack.pop();
+                current = node->right;
+                while (current != nullptr) {
+                    stack.push(current);
+                    current = current->left;
+                }
+                return node->data;
+            }
+            iterator operator++() {
+                next();
+                return *this;
+            }
+            T operator*() {
+                if (!hasNext()) {
+                    throw std::out_of_range("No more elements");
+                }
+                return stack.top()->data;
+            }
+            bool operator!=(const iterator &other) {
+                return current != other.current;
+            }
+            bool operator==(const iterator &other) {
+                return current == other.current;
+            }
+    };
 
   public:
+    Node<T> *getRoot() { return root; }
     void insertNode(T value) { root = insertNodeAux(root, value); }
     Node<T> *searchNode(T value) { return searchNodeAux(root, value); }
     void inOrder() {
@@ -282,6 +351,23 @@ template <typename T> class BST {
     void DFS() {
         DFS(root);
         std::cout << std::endl;
+    }
+    void buildBST(T arr[], int size) {
+        if (size <= 0) {
+            std::cout << "Array is empty." << std::endl;
+            return;
+        }
+        this->root = buildBSTAux(root, arr, 0, size - 1);
+    }
+    void printTree() {
+        printTreeAux(root, 0);
+        std::cout << std::endl;
+    }
+    iterator begin() {
+        return iterator(root);
+    }
+    iterator end() {
+        return iterator(nullptr);
     }
     BST() : root(nullptr) {}
     ~BST() { deleteTree(); }

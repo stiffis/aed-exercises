@@ -266,49 +266,48 @@ template <typename T> class BST {
         printTreeAux(node->left, space);
     }
     class iterator { // INFO: Iterator class for in-order traversal
-        private:
-            Node<T> *current;
-            std::stack<Node<T> *> stack;
-        public:
-            iterator(Node<T> *root) {
-                current = root;
-                while (current != nullptr) {
-                    stack.push(current);
-                    current = current->left;
-                }
+      private:
+        Node<T> *current;
+        std::stack<Node<T> *> stack;
+
+      public:
+        iterator(Node<T> *root) {
+            current = root;
+            while (current != nullptr) {
+                stack.push(current);
+                current = current->left;
             }
-            bool hasNext() {
-                return !stack.empty();
+        }
+        bool hasNext() { return !stack.empty(); }
+        T next() {
+            if (!hasNext()) {
+                throw std::out_of_range("No more elements");
             }
-            T next() {
-                if (!hasNext()) {
-                    throw std::out_of_range("No more elements");
-                }
-                Node<T> *node = stack.top();
-                stack.pop();
-                current = node->right;
-                while (current != nullptr) {
-                    stack.push(current);
-                    current = current->left;
-                }
-                return node->data;
+            Node<T> *node = stack.top();
+            stack.pop();
+            current = node->right;
+            while (current != nullptr) {
+                stack.push(current);
+                current = current->left;
             }
-            iterator operator++() {
-                next();
-                return *this;
+            return node->data;
+        }
+        iterator operator++() {
+            next();
+            return *this;
+        }
+        T operator*() {
+            if (!hasNext()) {
+                throw std::out_of_range("No more elements");
             }
-            T operator*() {
-                if (!hasNext()) {
-                    throw std::out_of_range("No more elements");
-                }
-                return stack.top()->data;
-            }
-            bool operator!=(const iterator &other) {
-                return current != other.current;
-            }
-            bool operator==(const iterator &other) {
-                return current == other.current;
-            }
+            return stack.top()->data;
+        }
+        bool operator!=(const iterator &other) {
+            return current != other.current;
+        }
+        bool operator==(const iterator &other) {
+            return current == other.current;
+        }
     };
 
   public:
@@ -363,12 +362,8 @@ template <typename T> class BST {
         printTreeAux(root, 0);
         std::cout << std::endl;
     }
-    iterator begin() {
-        return iterator(root);
-    }
-    iterator end() {
-        return iterator(nullptr);
-    }
+    iterator begin() { return iterator(root); }
+    iterator end() { return iterator(nullptr); }
     BST() : root(nullptr) {}
     ~BST() { deleteTree(); }
 };

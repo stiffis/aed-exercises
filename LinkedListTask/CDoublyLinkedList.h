@@ -233,10 +233,3 @@ CDoublyLinkedList<T>::CDoublyLinkedList()
     : head(nullptr), tail(nullptr), size(0) {}
 template <typename T> CDoublyLinkedList<T>::~CDoublyLinkedList() { clear(); }
 #endif // !CDOUBLYLINKEDLIST_H
-// PERF: O(purr)
-/*
-⠀ ／l
-（ﾟ､ ｡ ７
-⠀ l、ﾞ ~ヽ
-  じしf_, )ノ ❤️
-*/

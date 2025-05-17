@@ -1,7 +1,6 @@
-
-template <typename TK, typename TV>
-class HashTable {
-private:
+#include <iostream>
+template <typename TK, typename TV> class HashTable {
+  private:
     struct Node {
         TK key;
         TV value;
@@ -9,24 +8,20 @@ private:
         Node() : isOccupied(false) {}
     };
 
-    Node* table;
+    Node *table;
     int capacity;
     int size;
 
-    int hashFunction(TK key) {
-        return static_cast<int>(key) % capacity;
-    }
+    int hashFunction(TK key) { return static_cast<int>(key) % capacity; }
 
-public:
+  public:
     HashTable(int capacity) {
         this->capacity = capacity;
         table = new Node[capacity];
         size = 0;
     }
 
-    ~HashTable() {
-        delete[] table;
-    }
+    ~HashTable() { delete[] table; }
 
     void insert(TK key, TV value) {
         int index = hashFunction(key);
@@ -45,7 +40,7 @@ public:
         size++;
     }
 
-    TV* get(TK key) {
+    TV *get(TK key) {
         int index = hashFunction(key);
         int originalIndex = index;
 
@@ -82,23 +77,22 @@ public:
     void printTable() {
         for (int i = 0; i < capacity; ++i) {
             if (table[i].isOccupied) {
-                std::cout << "Indice " << i << ": {" << table[i].key << ": " << table[i].value << "}" << std::endl;
+                std::cout << "Indice " << i << ": {" << table[i].key << ": "
+                          << table[i].value << "}" << std::endl;
             }
         }
     }
 
-    int getSize() {
-        return size;
-    }
+    int getSize() { return size; }
 };
 
 class Solution {
-public:
+  public:
     int firstUniqChar(std::string s) {
         HashTable<char, int> hashTable(s.length());
 
         for (char c : s) {
-            int* current = hashTable.get(c);
+            int *current = hashTable.get(c);
             if (current == nullptr) {
                 hashTable.insert(c, 1);
             } else {
@@ -107,7 +101,7 @@ public:
         }
 
         for (int i = 0; i < s.length(); i++) {
-            int* count = hashTable.get(s[i]);
+            int *count = hashTable.get(s[i]);
             if (count != nullptr && *count == 1) {
                 return i;
             }

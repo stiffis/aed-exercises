@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const float maxFillfactor = 0.7;
+const float maxFillfactor = 0.7; // Comúnmente se usa 0.7
 const int maxColision = 4;
 
 template <typename TK, typename TV> class ChainHash {
@@ -101,6 +101,28 @@ template <typename TK, typename TV> class ChainHash {
         }
         return false;
     }
+
+    TV &operator[](TK key) {
+        int hashCode = getHashCode(key);
+        int index = hashCode % capacity;
+        auto &list = array[index];
+        for (auto &e : list) {
+            if (e.key == key) {
+                return e.value; // Si la clave ya existe, devuelve el valor
+            }
+        }
+        // Si la clave no existe, se inserta un nuevo elemento con valor por
+        // defecto
+        // y se devuelve su referencia
+        // Esto es importante para poder usar el operador [] como un
+        // asignador
+        list.push_front(Entry(key, TV()));
+        size++;
+        if (list.size() == 1) { // Si la lista estaba vacía, incrementamos el
+                                // contador de cubos ocupados
+            ++bucketCount;
+        }
+    }
     typename forward_list<Entry>::iterator begin(int index) { // O(1)
         // TODO: devolver el iterador al inicio de la lista en el index
         // CODE:
@@ -163,10 +185,3 @@ template <typename TK, typename TV> class ChainHash {
     }
 };
 #endif // !CHAINHASH_H
-// PERF: O(purr)
-/*
-⠀ ／l
-（ﾟ､ ｡ ７
-⠀ l、ﾞ ~ヽ
-  じしf_, )ノ ❤️
-*/

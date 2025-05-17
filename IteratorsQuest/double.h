@@ -11,12 +11,11 @@ template <typename T> struct NodeDL {
 };
 // DoubleListIterator is an iterator of the double linked list
 template <typename T> class DoubleListIterator {
-    private:
-        NodeDL<T> *current;
+  private:
+    NodeDL<T> *current;
+
   public:
-    DoubleListIterator() {
-        current = nullptr;
-    } // Constructor with no arguments
+    DoubleListIterator() { current = nullptr; } // Constructor with no arguments
     DoubleListIterator(NodeDL<T> *current) {
         this->current = current;
     } // Constructor with a node
@@ -26,30 +25,33 @@ template <typename T> class DoubleListIterator {
     bool operator!=(const DoubleListIterator<T> &other);
     T operator*();
 };
-template<typename T> DoubleListIterator<T> &DoubleListIterator<T>::operator++() {
+template <typename T>
+DoubleListIterator<T> &DoubleListIterator<T>::operator++() {
     if (current != nullptr) {
         current = current->next;
     }
     return *this;
 }
-template<typename T> DoubleListIterator<T> &DoubleListIterator<T>::operator++(int) {
+template <typename T>
+DoubleListIterator<T> &DoubleListIterator<T>::operator++(int) {
     DoubleListIterator<T> temp = *this;
     ++(*this);
     return temp;
 }
-template<typename T> DoubleListIterator<T> &DoubleListIterator<T>::operator--() {
+template <typename T>
+DoubleListIterator<T> &DoubleListIterator<T>::operator--() {
     if (current != nullptr) {
         current = current->prev;
     }
     return *this;
 }
-template<typename T> bool DoubleListIterator<T>::operator!=(const DoubleListIterator<T> &other) {
+template <typename T>
+bool DoubleListIterator<T>::operator!=(const DoubleListIterator<T> &other) {
     return current != other.current;
 }
-template<typename T> T DoubleListIterator<T>::operator*() {
+template <typename T> T DoubleListIterator<T>::operator*() {
     return current->data;
 }
-
 
 // DoubleList is a double linked list
 template <typename T> class DoubleList {

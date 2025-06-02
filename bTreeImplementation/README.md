@@ -1,7 +1,6 @@
 # Integrantes
 
-1. Galindo Bendezu Marco Antonio
-2. Ildefonso Santos Steve Andy
+1. Ildefonso Santos Steve Andy
 
 # B Tree
 

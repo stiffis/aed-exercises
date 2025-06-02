@@ -1,9 +1,8 @@
-// bajo este codigo quiero que me ayudes a "modificar" este codigo para realizar
-// benchmark empiricos de las funciones más importantes
-// , se creará un arbol de prueba y cada vez que se haga un insert , delete,
-// print o rotacion derecha o izquierda se medirá el tiempo que tardó en
-// realizar dicha tarea
-// a vs b; donde a representa el tiempo de ejecucion de la funcoin y b el tamaño
+// bajo este codigo quiero que me ayudes a "modificarlo" este codigo para
+// realizar benchmark empiricos de las funciones más importantes , se creará un
+// arbol de prueba y cada vez que se haga un insert , delete, print o rotacion
+// derecha o izquierda se medirá el tiempo que tardó en realizar dicha tarea a
+// vs b; donde a representa el tiempo de ejecucion de la funcoin y b el tamaño
 // de la entrada ya sea para un insert, delete, print o ratacion.
 #ifndef REDBLACKTREE_H
 #define REDBLACKTREE_H

@@ -1,17 +1,32 @@
-#ifndef REDBLACKTREE_H
-#define REDBLACKTREE_H
+#ifndef BENCHMARKREDBLACKTREE_H
+#define BENCHMARKREDBLACKTREE_H
+
 #include "Node.h"
+#include <chrono>
 #include <iostream>
+#include <utility>
+#include <vector>
+
 class RedBlackTree {
   private:
     Node *root;
-    // INFO:  Find the minimum node in a subtree
+
+    // Benchmark storage: pares (tiempo_microsegundos, tamaño_entrada)
+    std::vector<std::pair<long long, int>> benchmarkInsertData;
+    std::vector<std::pair<long long, int>> benchmarkRemoveData;
+    std::vector<std::pair<long long, int>> benchmarkPrintData;
+    std::vector<std::pair<long long, int>> benchmarkLeftRotateData;
+    std::vector<std::pair<long long, int>> benchmarkRightRotateData;
+
+    int nodeCount = 0;
+
     Node *minimum(Node *node) {
         while (node->left != nullptr)
             node = node->left;
         return node;
     }
-    // INFO: Left Rotation
+
+    // Private Left Rotation
     void leftRotate(Node *x) {
         if (x == nullptr || x->right == nullptr)
             return;
@@ -31,11 +46,11 @@ class RedBlackTree {
         y->left = x;
         x->parent = y;
     }
-    // INFO: RIGHT Rotation
+
+    // Private Right Rotation
     void rightRotate(Node *y) {
-        if (y == nullptr || y->left == nullptr) {
+        if (y == nullptr || y->left == nullptr)
             return;
-        }
         Node *x = y->left;
         y->left = x->right;
         if (x->right != nullptr) {
@@ -52,7 +67,7 @@ class RedBlackTree {
         x->right = y;
         y->parent = x;
     }
-    // INFO: Fix violations after inserting a Node
+
     void fixInsert(Node *z) {
         while (z != root && z->parent->color == RED) {
             if (z->parent == z->parent->parent->left) {
@@ -62,15 +77,14 @@ class RedBlackTree {
                     y->color = BLACK;
                     z->parent->parent->color = RED;
                     z = z->parent->parent;
-
                 } else {
                     if (z == z->parent->right) {
                         z = z->parent;
-                        leftRotate(z);
+                        benchmarkLeftRotate(z);
                     }
                     z->parent->color = BLACK;
                     z->parent->parent->color = RED;
-                    rightRotate(z->parent->parent);
+                    benchmarkRightRotate(z->parent->parent);
                 }
             } else {
                 Node *y = z->parent->parent->left;
@@ -82,17 +96,17 @@ class RedBlackTree {
                 } else {
                     if (z == z->parent->left) {
                         z = z->parent;
-                        rightRotate(z);
+                        benchmarkRightRotate(z);
                     }
                     z->parent->color = BLACK;
                     z->parent->parent->color = RED;
-                    leftRotate(z->parent->parent);
+                    benchmarkLeftRotate(z->parent->parent);
                 }
             }
         }
         root->color = BLACK;
     }
-    // INFO: Fix violations after deleting a Node
+
     void fixDelete(Node *x) {
         while (x != root && x != nullptr && x->color == BLACK) {
             if (x == x->parent->left) {
@@ -100,7 +114,7 @@ class RedBlackTree {
                 if (w->color == RED) {
                     w->color = BLACK;
                     x->parent->color = RED;
-                    leftRotate(x->parent);
+                    benchmarkLeftRotate(x->parent);
                     w = x->parent->right;
                 }
                 if ((w->left == nullptr || w->left->color == BLACK) &&
@@ -109,19 +123,17 @@ class RedBlackTree {
                     x = x->parent;
                 } else {
                     if (w->right == nullptr || w->right->color == BLACK) {
-                        if (w->left != nullptr) {
+                        if (w->left != nullptr)
                             w->left->color = BLACK;
-                        }
                         w->color = RED;
-                        rightRotate(w);
+                        benchmarkRightRotate(w);
                         w = x->parent->right;
                     }
                     w->color = x->parent->color;
                     x->parent->color = BLACK;
-                    if (w->right != nullptr) {
+                    if (w->right != nullptr)
                         w->right->color = BLACK;
-                    }
-                    leftRotate(x->parent);
+                    benchmarkLeftRotate(x->parent);
                     x = root;
                 }
             } else {
@@ -129,7 +141,7 @@ class RedBlackTree {
                 if (w->color == RED) {
                     w->color = BLACK;
                     x->parent->color = RED;
-                    rightRotate(x->parent);
+                    benchmarkRightRotate(x->parent);
                     w = x->parent->left;
                 }
                 if ((w->right == nullptr || w->right->color == BLACK) &&
@@ -141,14 +153,14 @@ class RedBlackTree {
                         if (w->right != nullptr)
                             w->right->color = BLACK;
                         w->color = RED;
-                        leftRotate(w);
+                        benchmarkLeftRotate(w);
                         w = x->parent->left;
                     }
                     w->color = x->parent->color;
                     x->parent->color = BLACK;
                     if (w->left != nullptr)
                         w->left->color = BLACK;
-                    rightRotate(x->parent);
+                    benchmarkRightRotate(x->parent);
                     x = root;
                 }
             }
@@ -157,7 +169,7 @@ class RedBlackTree {
             x->color = BLACK;
         }
     }
-    // INFO: Transplant function used in deletion
+
     void transplant(Node *u, Node *v) {
         if (u->parent == nullptr) {
             root = v;
@@ -170,11 +182,11 @@ class RedBlackTree {
             v->parent = u->parent;
         }
     }
-    // INFO: Delete a Node
+
     void deleteNode(Node *z) {
-        if (z == nullptr) {
+        if (z == nullptr)
             return;
-        }
+
         Node *y = z;
         Node *x = nullptr;
         Color yOriginalColor = y->color;
@@ -191,108 +203,181 @@ class RedBlackTree {
             x = y->right;
 
             if (y->parent == z) {
-                if (x != nullptr) {
+                if (x != nullptr)
                     x->parent = y;
-                }
             } else {
-                if (x != nullptr) {
+                if (x != nullptr)
                     x->parent = y->parent;
-                }
                 transplant(y, y->right);
-                if (y->right != nullptr) {
+                if (y->right != nullptr)
                     y->right->parent = y;
-                }
                 y->right = z->right;
-                if (y->right != nullptr) {
+                if (y->right != nullptr)
                     y->right->parent = y;
-                }
             }
             transplant(z, y);
             y->left = z->left;
-            if (y->left != nullptr) {
+            if (y->left != nullptr)
                 y->left->parent = y;
-            }
             y->color = z->color;
         }
-        if (yOriginalColor == BLACK && x != nullptr) {
+        if (yOriginalColor == BLACK && x != nullptr)
             fixDelete(x);
-        }
+
         delete z;
     }
-    // INFO: Print the tree structure
+
     void printHelper(Node *root, int space) {
-        constexpr int COUNT = 10; // Space between levels
-        if (root == nullptr) {
+        constexpr int COUNT = 10;
+        if (root == nullptr)
             return;
-        }
         space += COUNT;
         printHelper(root->right, space);
         std::cout << std::endl;
-        for (int i = COUNT; i < space; ++i) {
+        for (int i = COUNT; i < space; ++i)
             std::cout << " ";
-        }
         std::cout << root->data << "(" << ((root->color == RED) ? "R" : "B")
                   << ")" << std::endl;
         printHelper(root->left, space);
     }
 
   public:
-    RedBlackTree() : root(nullptr) {}
-    // INFO: Insert a Node
+    RedBlackTree() : root(nullptr), nodeCount(0) {}
+
+    int size() const { return nodeCount; }
+
+    // Public insert with timing
     void insert(int val) {
+        auto start = std::chrono::high_resolution_clock::now();
+
         Node *newNode = new Node(val);
         Node *y = nullptr;
         Node *x = root;
 
         while (x != nullptr) {
             y = x;
-            if (newNode->data < x->data) {
+            if (newNode->data < x->data)
                 x = x->left;
-            } else {
+            else
                 x = x->right;
-            }
         }
         newNode->parent = y;
-        if (y == nullptr) {
+        if (y == nullptr)
             root = newNode;
-        } else if (newNode->data < y->data) {
+        else if (newNode->data < y->data)
             y->left = newNode;
-        } else {
+        else
             y->right = newNode;
-        }
+
         fixInsert(newNode);
+
+        nodeCount++;
+
+        auto end = std::chrono::high_resolution_clock::now();
+        long long duration =
+            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+                .count();
+
+        benchmarkInsertData.emplace_back(duration, nodeCount);
     }
-    // INFO: Delete a Node by value
+
+    // Public remove with timing
     void remove(int val) {
+        auto start = std::chrono::high_resolution_clock::now();
+
         Node *z = root;
         while (z != nullptr) {
-            if (val < z->data) {
+            if (val < z->data)
                 z = z->left;
-            } else if (val > z->data) {
+            else if (val > z->data)
                 z = z->right;
-            } else {
+            else {
                 deleteNode(z);
+                nodeCount--;
+                auto end = std::chrono::high_resolution_clock::now();
+                long long duration =
+                    std::chrono::duration_cast<std::chrono::microseconds>(end -
+                                                                          start)
+                        .count();
+                benchmarkRemoveData.emplace_back(duration, nodeCount);
                 return;
             }
         }
         std::cout << "Node with value " << val << " not found in the tree."
                   << std::endl;
+
+        auto end = std::chrono::high_resolution_clock::now();
+        long long duration =
+            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+                .count();
+        benchmarkRemoveData.emplace_back(duration, nodeCount);
     }
-    // INFO: Search for a Node by value
+
+    // Search function (sin medición, pero puedes añadir si quieres)
     Node *search(int val) {
         Node *current = root;
         while (current != nullptr) {
-            if (val < current->data) {
+            if (val < current->data)
                 current = current->left;
-            } else if (val > current->data) {
+            else if (val > current->data)
                 current = current->right;
-            } else {
-                return current; // Node found
-            }
+            else
+                return current;
         }
-        return nullptr; // Node not found
+        return nullptr;
     }
-    // INFO: Print the tree structure
-    void print() { printHelper(root, 0); }
+
+    // Public print con timing
+    void print() {
+        auto start = std::chrono::high_resolution_clock::now();
+        printHelper(root, 0);
+        auto end = std::chrono::high_resolution_clock::now();
+        long long duration =
+            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+                .count();
+        benchmarkPrintData.emplace_back(duration, nodeCount);
+    }
+
+    // Public Left Rotate con timing
+    void benchmarkLeftRotate(Node *x) {
+        auto start = std::chrono::high_resolution_clock::now();
+        leftRotate(x);
+        auto end = std::chrono::high_resolution_clock::now();
+        long long duration =
+            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+                .count();
+        benchmarkLeftRotateData.emplace_back(duration, nodeCount);
+    }
+
+    // Public Right Rotate con timing
+    void benchmarkRightRotate(Node *y) {
+        auto start = std::chrono::high_resolution_clock::now();
+        rightRotate(y);
+        auto end = std::chrono::high_resolution_clock::now();
+        long long duration =
+            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+                .count();
+        benchmarkRightRotateData.emplace_back(duration, nodeCount);
+    }
+
+    // Getters para datos de benchmark
+    const std::vector<std::pair<long long, int>> &getInsertBenchmark() const {
+        return benchmarkInsertData;
+    }
+    const std::vector<std::pair<long long, int>> &getRemoveBenchmark() const {
+        return benchmarkRemoveData;
+    }
+    const std::vector<std::pair<long long, int>> &getPrintBenchmark() const {
+        return benchmarkPrintData;
+    }
+    const std::vector<std::pair<long long, int>> &
+    getLeftRotateBenchmark() const {
+        return benchmarkLeftRotateData;
+    }
+    const std::vector<std::pair<long long, int>> &
+    getRightRotateBenchmark() const {
+        return benchmarkRightRotateData;
+    }
 };
-#endif // !REDBLACKTREE_H
+
+#endif // BENCHMARKREDBLACKTREE_H

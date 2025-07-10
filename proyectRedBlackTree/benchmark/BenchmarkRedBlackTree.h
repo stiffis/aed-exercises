@@ -1,7 +1,7 @@
 #ifndef BENCHMARKREDBLACKTREE_H
 #define BENCHMARKREDBLACKTREE_H
 
-#include "Node.h"
+#include "../Node.h"
 #include <chrono>
 #include <iostream>
 #include <utility>
@@ -17,6 +17,7 @@ class RedBlackTree {
     std::vector<std::pair<long long, int>> benchmarkPrintData;
     std::vector<std::pair<long long, int>> benchmarkLeftRotateData;
     std::vector<std::pair<long long, int>> benchmarkRightRotateData;
+    std::vector<std::pair<long long, int>> benchmarkSearchData;
 
     int nodeCount = 0;
 
@@ -275,7 +276,7 @@ class RedBlackTree {
 
         auto end = std::chrono::high_resolution_clock::now();
         long long duration =
-            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+            std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
                 .count();
 
         benchmarkInsertData.emplace_back(duration, nodeCount);
@@ -296,7 +297,7 @@ class RedBlackTree {
                 nodeCount--;
                 auto end = std::chrono::high_resolution_clock::now();
                 long long duration =
-                    std::chrono::duration_cast<std::chrono::microseconds>(end -
+                    std::chrono::duration_cast<std::chrono::nanoseconds>(end -
                                                                           start)
                         .count();
                 benchmarkRemoveData.emplace_back(duration, nodeCount);
@@ -308,23 +309,35 @@ class RedBlackTree {
 
         auto end = std::chrono::high_resolution_clock::now();
         long long duration =
-            std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+            std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
                 .count();
         benchmarkRemoveData.emplace_back(duration, nodeCount);
     }
 
-    // Search function (sin medición, pero puedes añadir si quieres)
+    // Search function with timing
     Node *search(int val) {
+        auto start = std::chrono::high_resolution_clock::now();
+        
         Node *current = root;
+        Node *result = nullptr;
+        
         while (current != nullptr) {
             if (val < current->data)
                 current = current->left;
             else if (val > current->data)
                 current = current->right;
-            else
-                return current;
+            else {
+                result = current;
+                break;
+            }
         }
-        return nullptr;
+        
+        // Record search time regardless of success or failure
+        auto end = std::chrono::high_resolution_clock::now();
+        long long duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+        benchmarkSearchData.emplace_back(duration, nodeCount);
+        
+        return result;
     }
 
     // Public print con timing
@@ -377,6 +390,10 @@ class RedBlackTree {
     const std::vector<std::pair<long long, int>> &
     getRightRotateBenchmark() const {
         return benchmarkRightRotateData;
+    }
+    const std::vector<std::pair<long long, int>> &
+    getSearchBenchmark() const {
+        return benchmarkSearchData;
     }
 };
 

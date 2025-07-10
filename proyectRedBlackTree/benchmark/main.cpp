@@ -6,7 +6,7 @@
 #include <vector>
 
 int main() {
-    const int maxN = 10000;
+    const int maxN = 30000;
     const int step = 500;
     const int runsPerSize = 5;
 
@@ -14,8 +14,7 @@ int main() {
     std::mt19937 gen(rd());
 
     std::ofstream outFile("benchmark_results.csv");
-    outFile << "Size,Run,Insert_us,SearchExisting_us,SearchMissing_us,Remove_"
-               "us,LeftRotate_us,RightRotate_us\n";
+    outFile << "Size,Run,Insert_ns,Search_ns,Remove_ns,LeftRotate_ns,RightRotate_ns\n";
 
     for (int n = step; n <= maxN; n += step) {
         for (int run = 1; run <= runsPerSize; ++run) {
@@ -32,42 +31,47 @@ int main() {
                 tree.insert(values[i]);
             }
 
-            // Sumar tiempos inserción
+            // Calcular tiempo promedio de inserción (últimas n inserciones)
             long long totalInsertTime = 0;
-            for (auto &p : tree.getInsertBenchmark()) {
-                if (p.second == n)
-                    totalInsertTime += p.first;
+            auto insertData = tree.getInsertBenchmark();
+            int insertCount = std::min(n, (int)insertData.size());
+            
+            if (insertCount > 0) {
+                // Tomar las últimas insertCount inserciones
+                for (int i = insertData.size() - insertCount; i < (int)insertData.size(); ++i) {
+                    totalInsertTime += insertData[i].first;
+                }
             }
 
-            // Buscar nodos existentes (medir tiempo en microsegundos)
-            auto startSearchExist = std::chrono::high_resolution_clock::now();
+            // Buscar nodos existentes (ahora usa timing interno)
             for (int i = 0; i < n; ++i) {
                 auto res = tree.search(values[i]);
                 if (!res)
                     std::cerr << "Error: nodo no encontrado!" << std::endl;
             }
-            auto endSearchExist = std::chrono::high_resolution_clock::now();
-            long long searchExistTime =
-                std::chrono::duration_cast<std::chrono::microseconds>(
-                    endSearchExist - startSearchExist)
-                    .count();
 
-            // Buscar nodos no existentes
+            // Buscar nodos no existentes (ahora usa timing interno)
             std::vector<int> missingValues;
             for (int i = maxN + 1; i <= maxN + n; ++i)
                 missingValues.push_back(i);
-            auto startSearchMiss = std::chrono::high_resolution_clock::now();
             for (int val : missingValues) {
                 auto res = tree.search(val);
                 if (res)
                     std::cerr << "Error: nodo inexistente encontrado!"
                               << std::endl;
             }
-            auto endSearchMiss = std::chrono::high_resolution_clock::now();
-            long long searchMissingTime =
-                std::chrono::duration_cast<std::chrono::microseconds>(
-                    endSearchMiss - startSearchMiss)
-                    .count();
+
+            // Calcular tiempo promedio de búsqueda (todas las búsquedas realizadas)
+            long long avgSearchTime = 0;
+            auto searchData = tree.getSearchBenchmark();
+            
+            if (!searchData.empty()) {
+                long long totalSearchTime = 0;
+                for (auto &p : searchData) {
+                    totalSearchTime += p.first;
+                }
+                avgSearchTime = totalSearchTime / searchData.size();
+            }
 
             // Eliminar 10% aleatorio de nodos insertados
             int removeCount = n / 10;
@@ -96,9 +100,10 @@ int main() {
                     totalRightRotateTime += p.first;
             }
 
-            outFile << n << "," << run << "," << totalInsertTime / n << ","
-                    << searchExistTime / n << "," << searchMissingTime / n
-                    << "," << removeTime / removeCount << ","
+            long long avgInsertTime = (insertCount > 0) ? totalInsertTime / insertCount : 0;
+            
+            outFile << n << "," << run << "," << avgInsertTime << ","
+                    << avgSearchTime << "," << removeTime / removeCount << ","
                     << (removeCount > 0 ? totalLeftRotateTime / removeCount : 0)
                     << ","
                     << (removeCount > 0 ? totalRightRotateTime / removeCount

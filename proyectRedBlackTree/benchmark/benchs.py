@@ -30,11 +30,10 @@ def plot_metric_with_log_n(df, metric_col, ylabel, title, filename):
     plt.close()
 
 # Graficar cada métrica
-plot_metric_with_log_n(df, 'Insert_us', 'Tiempo promedio (µs)', 'Inserción promedio vs O(log n)', 'insert.png')
-plot_metric_with_log_n(df, 'SearchExisting_us', 'Tiempo promedio (µs)', 'Búsqueda exitosa vs O(log n)', 'search_existing.png')
-plot_metric_with_log_n(df, 'SearchMissing_us', 'Tiempo promedio (µs)', 'Búsqueda fallida vs O(log n)', 'search_missing.png')
-plot_metric_with_log_n(df, 'Remove_us', 'Tiempo promedio (µs)', 'Eliminación promedio vs O(log n)', 'remove.png')
-plot_metric_with_log_n(df, 'LeftRotate_us', 'Tiempo promedio (µs)', 'Rotación izquierda promedio vs O(log n)', 'left_rotate.png')
-plot_metric_with_log_n(df, 'RightRotate_us', 'Tiempo promedio (µs)', 'Rotación derecha promedio vs O(log n)', 'right_rotate.png')
+plot_metric_with_log_n(df, 'Insert_ns', 'Tiempo promedio (ns)', 'Inserción promedio vs O(log n)', 'insert.png')
+plot_metric_with_log_n(df, 'Search_ns', 'Tiempo promedio (ns)', 'Búsqueda promedio vs O(log n)', 'search.png')
+plot_metric_with_log_n(df, 'Remove_ns', 'Tiempo promedio (ns)', 'Eliminación promedio vs O(log n)', 'remove.png')
+plot_metric_with_log_n(df, 'LeftRotate_ns', 'Tiempo promedio (ns)', 'Rotación izquierda promedio vs O(log n)', 'left_rotate.png')
+plot_metric_with_log_n(df, 'RightRotate_ns', 'Tiempo promedio (ns)', 'Rotación derecha promedio vs O(log n)', 'right_rotate.png')
 
-print("Gráficos generados y guardados: insert.png, search_existing.png, search_missing.png, remove.png, left_rotate.png, right_rotate.png")
+print("Gráficos generados y guardados: insert.png, search.png, remove.png, left_rotate.png, right_rotate.png")

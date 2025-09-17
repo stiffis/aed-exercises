@@ -1,96 +1,92 @@
 # AED Exercises
 
-Welcome to the **AED Exercises** repository! 🎯  
-This repository contains a collection of algorithmic and data structure exercises, sourced from **LeetCode** and **class assignments**.
+![C++](https://img.shields.io/badge/language-C%2B%2B17-blue.svg)
+![Status](https://img.shields.io/badge/status-learning-informational.svg)
+![License](https://img.shields.io/badge/license-GPLv2-green.svg)
 
----
+> Collection of algorithm and data structure exercises for the Algorithms and Data Structures (AED) course. Includes LeetCode style problems, class assignments, and multiple from-scratch implementations.
 
-## 📂 Repository Structure
+## Table of Contents
 
-The exercises are organized by topic and difficulty. Here's a quick outline:
+- [Overview](#overview)
+- [Repository Structure](#repository-structure)
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Topics Covered](#topics-covered)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-### Folders:
-- **`easy/`**: Beginner-friendly exercises to practice fundamental concepts.
-- **`medium/`**: Intermediate exercises for honing problem-solving skills.
-- **`hard/`**: Advanced problems for in-depth exploration of algorithms and data structures.
-- **`implementations/`**: Contains implementations of various data structures and algorithms.
+## Overview
 
-### File Naming Convention:
-Each file indicates its purpose:
-- `leet_<problem-name>.cpp`: Exercises sourced from LeetCode.
-- `class_<topic-name>.cpp`: Exercises from class assignments.
-- `impl_<data-structure>.cpp`: Implementations of specific data structures or algorithms.
+This repository gathers C++ solutions used to practice algorithms and data structures. You will find worked examples, personal experiments, evaluation material, and reference implementations of classic structures.
 
----
+## Repository Structure
 
-## 🛠️ Prerequisites
+| Path                                                                           | Description                                                           |
+| ------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| `arrayExercises/`                                                              | Array-focused problems and warm-up algorithms (LeetCode inspired).    |
+| `EC*/`                                                                         | Short evaluations from the course (for example `EC1`, `EC7`, `EC11`). |
+| `REC/`, `Partial/`                                                             | Review sessions, partial exams, and complementary exercises.          |
+| `LinkedListTask/`, `IteratorsQuest/`                                           | Linked list variants and custom iterator implementations.             |
+| `bstImplementation/`, `btree/`, `bTreeImplementation/`, `proyectRedBlackTree/` | Binary search trees, B-Trees, and Red-Black Tree projects.            |
+| `HashImplementation/`, `dictionariesTask/`                                     | Hash tables and dictionary-based structures.                          |
+| `graphImplementation/`                                                         | Graph abstractions and traversal utilities.                           |
+| `sparseMatrixImplementation/`                                                  | Sparse matrix algorithms and helpers.                                 |
+| `TrainStringMatching/`, `stringMatching.md`                                    | String matching practice sets and notes.                              |
+| Miscellaneous files (`backtracking.cpp`, `btree.md`, etc.)                     | One-off exercises or in-class guides.                                 |
 
-To work with the exercises in this repository, ensure you have the following installed:
+> Several directories contain compiled binaries (`main`, `main.exe`). Remove them after compiling to keep the tree tidy.
 
-1. **C++ Compiler** (e.g., GCC or Clang)
-2. **C++ Standard Library** (C++11 or later)
+## Requirements
 
----
+- C++ compiler with C++17 support (GCC, Clang, or MSVC).
+- C++ standard library.
+- Optional: build tooling such as `cmake` or `make` if you prefer custom build scripts.
 
-## 🚀 Getting Started
+## Quick Start
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/stiffis/aed-exercises.git
    cd aed-exercises
    ```
-
-2. Navigate to the folder of your choice:
+2. Enter the folder that contains the exercise you want to run:
    ```bash
-   cd easy
+   cd arrayExercises
    ```
-
-3. Compile and run any C++ file:
+3. Compile and execute the desired source file:
    ```bash
-   g++ example.cpp -o example
-   ./example
+   g++ containsDuplicate.cpp -std=c++17 -O2 -o containsDuplicate
+   ./containsDuplicate
    ```
+   > Adjust compiler flags or the C++ standard as required by each exercise.
 
----
+## Topics Covered
 
-## 📖 Topics Covered
+- Arrays and strings
+- Linked lists and dynamic structures
+- Binary search trees, B-Trees, and Red-Black Trees
+- Hash tables and dictionary ADTs
+- Graphs, traversals, and shortest paths
+- Recursion, backtracking, and dynamic programming
+- String matching algorithms and advanced data structures (sparse matrices, disjoint sets, etc.)
 
-- Sorting Algorithms
-- Recursion and Backtracking
-- Dynamic Programming
-- Graphs and Trees
-- Linked Lists
-- Arrays and Strings
+## Contributing
 
----
+Contributions are welcome! You can add new exercises, propose alternative solutions, or suggest documentation improvements.
 
-## 🤝 Contributions
+Recommended workflow:
 
-Contributions are welcome! Feel free to:
-- Add new exercises
-- Optimize existing solutions
-- Report issues or suggest improvements
+1. Fork this repository.
+2. Create a feature branch: `git checkout -b feature/new-solution`.
+3. Commit and push your changes: `git commit -m "Add new solution"` followed by `git push origin feature/new-solution`.
+4. Open a pull request describing your changes, test results, and any relevant notes.
 
-To contribute:
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-exercise`.
-3. Commit your changes and push: `git push origin feature/new-exercise`.
-4. Open a pull request.
+## License
 
----
+This project is distributed under the **GNU GPL v2**. Refer to `LICENSE` for the full terms.
 
-## 📧 Contact
+## Contact
 
-For any questions or suggestions, reach out via GitHub Issues or email me at [steve.ildefonso@utec.edu.pe].
-
-Enjoy solving the problems and happy coding! 🚀
-
-```cat
-
-⠀ ／l
-（ﾟ､ ｡ ７
-⠀ l、ﾞ ~ヽ
-  じしf_, )ノ ❤️
-
-```
-COMPLEXITY: O(purr)
+Questions or suggestions? Open an issue or email [steve.ildefonso@utec.edu.pe](mailto:steve.ildefonso@utec.edu.pe).
